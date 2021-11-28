@@ -5,7 +5,7 @@
 #include <queue>
 #include <cmath>
 
-#include "../Kuki/Vec2D.h"
+#include "Vec2D.h"
 #include <SFML/Graphics.hpp>
 
 void shapeSetPosition(sf::Shape& shape, Vec2D position)
