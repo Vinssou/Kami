@@ -417,6 +417,8 @@ int main()
 	shape_selected.setFillColor(sf::Color::Green);
 
 
+	bool tab_has_been_released = false;
+	bool enter_has_been_released = false;
 
 	while (window.isOpen())
 	{
@@ -424,8 +426,15 @@ int main()
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
-			if (event.type == sf::Event::Closed)
+			if (event.type == sf::Event::Closed) {
 				window.close();
+			}
+			if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Tab)) {
+				tab_has_been_released = true;
+			}
+			if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
+				enter_has_been_released = true;
+			}
 		}
 
 		for (int i = 0; i < 2; i++) {
@@ -448,9 +457,10 @@ int main()
 		{
 			teams[0].units[teams[0].unitIndex].direction = up;
 		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) && enter_has_been_released)
 		{
 			teams[0].unitIndex++;
+			enter_has_been_released = false;
 		}
 		
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
@@ -469,9 +479,10 @@ int main()
 		{
 			teams[1].units[teams[1].unitIndex].direction = up;
 		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Tab))
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Tab) && tab_has_been_released)
 		{
 			teams[1].unitIndex++;
+			tab_has_been_released = false;
 		}
 
 
@@ -523,7 +534,6 @@ int main()
 			}
 			shapeSetPosition(shape_selected, teams[i].units[teams[i].unitIndex].position - camera + size_shape);
 			window.draw(shape_selected);
-			
 		}
 
 		
@@ -545,7 +555,7 @@ int main()
 		{
 			teams[1].units.push_back(Unit(Vec2D(1200.0f, 800.0f), 2, sf::Color::Blue));
 		}
-		else if (static_cast<int> (1 + score.team1_pixel_count / unit_per_pixel) < teams[1].units.size())
+		else if (static_cast<int> (1 + score.team2_pixel_count / unit_per_pixel) < teams[1].units.size())
 		{
 			teams[1].units.pop_back();
 		}
