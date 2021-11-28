@@ -1,5 +1,7 @@
 # Kami
 
+![Kami](Kami.png)
+
 ## Setup
 ```console
 apt-get install libsfml-dev
