@@ -378,7 +378,7 @@ int main()
 	std::vector<Pixel> map;
 	createMap(map);
 
-	sf::RenderWindow window(sf::VideoMode(1768, 1000), "SFML works!");
+	sf::RenderWindow window(sf::VideoMode(1200, 1200), "KAMI");
 
 
 	float pixel_size = size_pixel - 1.0f;
@@ -412,6 +412,10 @@ int main()
 
 	float sizeX = 4.0f * 1768.0f;
 	float sizeY = 1000.0f;
+
+	sf::CircleShape shape_selected(10.0f);
+	shape_selected.setFillColor(sf::Color::Green);
+
 
 
 	while (window.isOpen())
@@ -517,7 +521,12 @@ int main()
 				updatePixels(map, unit.position + size_shape, unit.team_id);
 				window.draw(unit.shape);
 			}
+			shapeSetPosition(shape_selected, teams[i].units[teams[i].unitIndex].position - camera + size_shape);
+			window.draw(shape_selected);
+			
 		}
+
+		
 
 		Score score;
 		computeScore(score, map);
